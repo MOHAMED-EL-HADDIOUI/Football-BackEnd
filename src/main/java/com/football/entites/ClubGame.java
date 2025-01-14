@@ -1,6 +1,7 @@
 package com.football.entites;
 import jakarta.persistence.*;
 import lombok.*;
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data

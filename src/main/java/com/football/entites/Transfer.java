@@ -3,6 +3,7 @@ import java.util.Date;
 
 import jakarta.persistence.*;
 import lombok.*;
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
