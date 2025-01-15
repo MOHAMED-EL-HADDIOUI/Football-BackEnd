@@ -27,7 +27,15 @@ public class CompetitionServiceImplementation implements CompetitionService{
 
     @Override
     public Competition getCompetition(String Id_Competition) {
-        return competitionRepository.getById(Id_Competition);
+        Competition competition = competitionRepository.getById(Id_Competition);
+        if(competition==null)
+        {
+            System.out.println("competition n'existe pas ");
+            return null;
+        }
+        else {
+            return competition;
+        }
     }
 
     @Override

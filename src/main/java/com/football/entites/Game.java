@@ -11,9 +11,8 @@ import java.util.Date;
 @Builder
 public class Game {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gameId;
-
     @ManyToOne
     @JoinColumn(name = "competitionId", referencedColumnName = "competitionId", insertable = false, updatable = false)
     private Competition competition;

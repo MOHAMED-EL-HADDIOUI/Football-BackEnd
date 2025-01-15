@@ -10,6 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 @Builder
+@ToString
 public class Appearance {
 
     @Id
