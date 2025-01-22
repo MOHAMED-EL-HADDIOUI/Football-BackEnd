@@ -1,25 +1,18 @@
-package com.football.entites;
-import jakarta.persistence.*;
-import lombok.*;
+package com.football.dtos;
+
+import com.football.entites.Club;
+import com.football.entites.Competition;
+import lombok.Data;
 
 import java.util.Date;
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
-@Builder
-@ToString
-public class Player {
-    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PlayerDTO {
     private Long playerId;
     private String firstName;
     private String lastName;
     private String name;
     private int lastSeason;
-    @ManyToOne
-    @JoinColumn(name = "currentClubId", referencedColumnName = "clubId")
     private Club currentClub;
 
     private String playerCode;
@@ -35,8 +28,6 @@ public class Player {
     private String agentName;
     private String imageUrl;
     private String url;
-    @ManyToOne
-    @JoinColumn(name = "currentClubDomesticCompetitionId", referencedColumnName = "competitionId")
     private Competition competition;
 
     private String currentClubName;

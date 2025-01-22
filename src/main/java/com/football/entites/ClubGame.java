@@ -13,17 +13,17 @@ public class ClubGame {
     private Long clubGameId;
 
     @ManyToOne
-    @JoinColumn(name = "gameId", referencedColumnName = "gameId", insertable = false, updatable = false)
+    @JoinColumn(name = "gameId", referencedColumnName = "gameId")
     private Game game;
 
     @ManyToOne
-    @JoinColumn(name = "clubId", referencedColumnName = "clubId", insertable = false, updatable = false)
+    @JoinColumn(name = "clubId", referencedColumnName = "clubId")
     private Club club;
     private int ownGoals;
     private Double ownPosition;
     private String ownManagerName;
     @ManyToOne
-    @JoinColumn(name = "opponentId", referencedColumnName = "clubId", insertable = false, updatable = false)
+    @JoinColumn(name = "opponentId", referencedColumnName = "clubId")
     private Club opponentclub;
     private int opponentGoals;
     private Double opponentPosition;

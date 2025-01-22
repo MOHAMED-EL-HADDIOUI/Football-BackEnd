@@ -1,6 +1,8 @@
 package com.football.services;
 
+import com.football.dtos.ClubsDTO;
 import com.football.entites.Club;
+import com.football.exceptions.ClubNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,4 +13,5 @@ public interface ClubService {
     Club getClub(Long Id_Club);
     void deleteClub(Long Id_Club);
     List<Club> getListClubs();
+    ClubsDTO searchByName(String name, int page) throws ClubNotFoundException;
 }

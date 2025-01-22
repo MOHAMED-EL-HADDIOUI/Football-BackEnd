@@ -1,6 +1,10 @@
 package com.football.services;
 
+import com.football.dtos.ClubsDTO;
+import com.football.dtos.GamesDTO;
 import com.football.entites.Game;
+import com.football.exceptions.ClubNotFoundException;
+import com.football.exceptions.GameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,4 +15,6 @@ public interface GameService {
     Game getGame(Long Id_Game);
     void deleteGame(Long Id_Game);
     List<Game> getListGames();
+    GamesDTO searchByName(String name, int page) throws GameNotFoundException;
+
 }

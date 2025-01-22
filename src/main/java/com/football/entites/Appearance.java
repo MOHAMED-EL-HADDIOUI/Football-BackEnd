@@ -17,15 +17,15 @@ public class Appearance {
     private String appearanceId;
 
     @ManyToOne
-    @JoinColumn(name = "playerId", referencedColumnName = "playerId", insertable = false, updatable = false)
+    @JoinColumn(name = "playerId", referencedColumnName = "playerId")
     private Player player;
 
     @ManyToOne
-    @JoinColumn(name = "playerClubId", referencedColumnName = "clubId", insertable = false, updatable = false)
+    @JoinColumn(name = "playerClubId", referencedColumnName = "clubId")
     private Club club;
 
     @ManyToOne
-    @JoinColumn(name = "playerCurrentClubId", referencedColumnName = "clubId", insertable = false, updatable = false)
+    @JoinColumn(name = "playerCurrentClubId", referencedColumnName = "clubId")
     private Club currentclub;
 
     private Date date;
@@ -37,9 +37,9 @@ public class Appearance {
     private int minutesPlayed;
 
     @ManyToOne
-    @JoinColumn(name = "gameId", referencedColumnName = "gameId", insertable = false, updatable = false)
+    @JoinColumn(name = "gameId", referencedColumnName = "gameId")
     private Game game;
     @ManyToOne
-    @JoinColumn(name = "competitionId", referencedColumnName = "competitionId", insertable = false, updatable = false)
+    @JoinColumn(name = "competitionId", referencedColumnName = "competitionId")
     private Competition competition;
 }

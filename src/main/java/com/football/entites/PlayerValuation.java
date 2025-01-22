@@ -15,11 +15,11 @@ public class PlayerValuation {
     private Long valuationId;
 
     @ManyToOne
-    @JoinColumn(name = "currentClubId", referencedColumnName = "clubId", insertable = false, updatable = false)
+    @JoinColumn(name = "currentClubId", referencedColumnName = "clubId")
     private Club currentClub;
 
     @ManyToOne
-    @JoinColumn(name = "playerId", referencedColumnName = "playerId", insertable = false, updatable = false)
+    @JoinColumn(name = "playerId", referencedColumnName = "playerId")
     private Player player;
 
     private Date date;
@@ -27,6 +27,6 @@ public class PlayerValuation {
     private Double marketValueInEur;
 
     @ManyToOne
-    @JoinColumn(name = "playerClubDomesticCompetitionId", referencedColumnName = "competitionId", insertable = false, updatable = false)
+    @JoinColumn(name = "playerClubDomesticCompetitionId", referencedColumnName = "competitionId")
     private Competition competition;
 }

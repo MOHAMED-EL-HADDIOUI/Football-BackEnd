@@ -17,15 +17,15 @@ public class GameLineup {
     private String gameLineupsId;
     private Date date;
     @ManyToOne
-    @JoinColumn(name = "gameId", referencedColumnName = "gameId", insertable = false, updatable = false)
+    @JoinColumn(name = "gameId", referencedColumnName = "gameId")
     private Game game;
 
     @ManyToOne
-    @JoinColumn(name = "clubId", referencedColumnName = "clubId", insertable = false, updatable = false)
+    @JoinColumn(name = "clubId", referencedColumnName = "clubId")
     private Club club;
 
     @ManyToOne
-    @JoinColumn(name = "playerId", referencedColumnName = "playerId", insertable = false, updatable = false)
+    @JoinColumn(name = "playerId", referencedColumnName = "playerId")
     private Player player;
 
     private String playerName;

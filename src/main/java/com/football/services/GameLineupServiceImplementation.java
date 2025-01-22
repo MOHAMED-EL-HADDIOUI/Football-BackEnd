@@ -27,7 +27,7 @@ public class GameLineupServiceImplementation implements GameLineupService {
 
     @Override
     public GameLineup getGameLineup(String Id_GameLineup) {
-        return gameLineupRepository.getById(Id_GameLineup);
+        return gameLineupRepository.findById(Id_GameLineup).orElse(null);
     }
 
     @Override

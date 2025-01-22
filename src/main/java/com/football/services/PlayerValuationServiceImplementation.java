@@ -21,7 +21,7 @@ public class PlayerValuationServiceImplementation implements PlayerValuationServ
     PlayerValuationRepository playerValuationRepository;
 
     @Override
-    public PlayerValuation saveClub(PlayerValuation playerValuation) {
+    public PlayerValuation savePlayerValuation(PlayerValuation playerValuation) {
         return playerValuationRepository.save(playerValuation);
     }
 

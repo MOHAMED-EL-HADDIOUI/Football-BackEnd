@@ -1,5 +1,9 @@
 package com.football.services;
+import com.football.dtos.ClubDTO;
+import com.football.dtos.ClubsDTO;
 import com.football.entites.Club;
+import com.football.exceptions.ClubNotFoundException;
+import com.football.mappers.ClubMapperImplementation;
 import com.football.repository.ClubRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -7,9 +11,12 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -20,15 +27,17 @@ public class ClubServiceImplementation implements ClubService{
     @Autowired
     @Order(1)
     ClubRepository clubRepository;
-
+    @Autowired
+    ClubMapperImplementation dtoMapper;
     @Override
     public Club saveClub(Club club) {
-        return clubRepository.save(club);
+        Club savedClub = clubRepository.save(club);
+        return savedClub;
     }
 
     @Override
     public Club getClub(Long Id_Club) {
-        return clubRepository.getById(Id_Club);
+        return clubRepository.findById(Id_Club).orElse(null);
     }
 
     @Override
@@ -39,5 +48,19 @@ public class ClubServiceImplementation implements ClubService{
     @Override
     public List<Club> getListClubs() {
         return clubRepository.findAll();
+    }
+
+    @Override
+    public ClubsDTO searchByName(String name, int page) throws ClubNotFoundException {
+        Page<Club> clubs ;
+        clubs = clubRepository.searchByName(name, PageRequest.of(page,20));
+        List<ClubDTO> clubDTOList=clubs.getContent().stream().map(c->dtoMapper.fromClub(c)).collect(Collectors.toList());
+        if (clubs == null)
+            throw new ClubNotFoundException("Club not fount");
+
+        ClubsDTO clubsDTO= new ClubsDTO();
+        clubsDTO.setClubsDTOS(clubDTOList);
+        clubsDTO.setTotalpage(clubs.getTotalPages());
+        return clubsDTO;
     }
 }

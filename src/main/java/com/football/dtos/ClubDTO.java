@@ -1,24 +1,13 @@
-package com.football.entites;
-import jakarta.persistence.*;
-import lombok.*;
+package com.football.dtos;
+import com.football.entites.Competition;
+import lombok.Data;
 
-@Entity
-@NoArgsConstructor
 @Data
-@AllArgsConstructor
-@Builder
-@ToString
-public class Club {
-    @Id
+public class ClubDTO {
     private Long clubId;
-
     private String clubCode;
     private String name;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "domesticCompetitionId", referencedColumnName = "competitionId")
     private Competition domesticCompetition;
-
     private Double totalMarketValue;
     private int squadSize;
     private double averageAge;

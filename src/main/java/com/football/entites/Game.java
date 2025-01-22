@@ -14,16 +14,16 @@ public class Game {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gameId;
     @ManyToOne
-    @JoinColumn(name = "competitionId", referencedColumnName = "competitionId", insertable = false, updatable = false)
+    @JoinColumn(name = "competitionId", referencedColumnName = "competitionId")
     private Competition competition;
     private int season;
     private String round;
     private Date date;
     @ManyToOne
-    @JoinColumn(name = "homeClubId", referencedColumnName = "clubId", insertable = false, updatable = false)
+    @JoinColumn(name = "homeClubId", referencedColumnName = "clubId")
     private Club homeClub;
     @ManyToOne
-    @JoinColumn(name = "awayClubId", referencedColumnName = "clubId", insertable = false, updatable = false)
+    @JoinColumn(name = "awayClubId", referencedColumnName = "clubId")
     private Club awayClub;
 
     private int homeClubGoals;

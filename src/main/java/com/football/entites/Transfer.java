@@ -15,15 +15,15 @@ public class Transfer {
     private Long transferId;
 
     @ManyToOne
-    @JoinColumn(name = "fromClubId", referencedColumnName = "clubId", insertable = false, updatable = false)
+    @JoinColumn(name = "fromClubId", referencedColumnName = "clubId")
     private Club fromClub;
 
     @ManyToOne
-    @JoinColumn(name = "toClubId", referencedColumnName = "clubId", insertable = false, updatable = false)
+    @JoinColumn(name = "toClubId", referencedColumnName = "clubId")
     private Club toClub;
 
     @ManyToOne
-    @JoinColumn(name = "playerId", referencedColumnName = "playerId", insertable = false, updatable = false)
+    @JoinColumn(name = "playerId", referencedColumnName = "playerId")
     private Player player;
 
     private Date transferDate;

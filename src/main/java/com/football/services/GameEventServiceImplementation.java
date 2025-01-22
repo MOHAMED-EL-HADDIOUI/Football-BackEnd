@@ -27,7 +27,7 @@ public class GameEventServiceImplementation implements GameEventService{
 
     @Override
     public GameEvent getGameEvent(String Id_GameEvent) {
-        return eventRepository.getById(Id_GameEvent);
+        return eventRepository.findById(Id_GameEvent).orElse(null);
     }
 
     @Override

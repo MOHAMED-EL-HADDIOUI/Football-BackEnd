@@ -21,18 +21,24 @@ public class GameEvent {
     private String type;
 
     @ManyToOne
-    @JoinColumn(name = "gameId", referencedColumnName = "gameId", insertable = false, updatable = false)
+    @JoinColumn(name = "gameId", referencedColumnName = "gameId")
     private Game game;
 
     @ManyToOne
-    @JoinColumn(name = "clubId", referencedColumnName = "clubId", insertable = false, updatable = false)
+    @JoinColumn(name = "clubId", referencedColumnName = "clubId")
     private Club club;
 
     @ManyToOne
-    @JoinColumn(name = "playerId", referencedColumnName = "playerId", insertable = false, updatable = false)
+    @JoinColumn(name = "playerId", referencedColumnName = "playerId")
     private Player player;
 
     private String description;
-    private String playerInId;
-    private String playerAssistId;
+
+    @ManyToOne
+    @JoinColumn(name = "playerInId", referencedColumnName = "playerId")
+    private Player playerIn;
+
+    @ManyToOne
+    @JoinColumn(name = "playerAssistId", referencedColumnName = "playerId")
+    private Player playerAssist;
 }

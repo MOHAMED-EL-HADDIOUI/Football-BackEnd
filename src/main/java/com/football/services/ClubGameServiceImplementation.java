@@ -30,7 +30,7 @@ public class ClubGameServiceImplementation implements ClubGameService{
 
     @Override
     public ClubGame getClubGame(Long Id_ClubGame) {
-        return clubGameRepository.getById(Id_ClubGame);
+        return clubGameRepository.findById(Id_ClubGame).orElse(null);
     }
 
     @Override
