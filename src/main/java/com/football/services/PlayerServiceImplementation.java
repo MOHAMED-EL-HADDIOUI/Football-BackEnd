@@ -58,7 +58,7 @@ public class PlayerServiceImplementation implements PlayerService{
     @Override
     public PlayersDTO searchByName(String name, int page) throws PlayerNotFoundException {
         Page<Player> players ;
-        players = playerRepository.searchByName(name, PageRequest.of(page,20));
+        players = playerRepository.searchByName(name, PageRequest.of(page,5));
         List<PlayerDTO> playerDTOS=players.getContent().stream().map(c->dtoMapper.fromPlayer(c)).collect(Collectors.toList());
         if (players == null)
             throw new PlayerNotFoundException("Player not fount");

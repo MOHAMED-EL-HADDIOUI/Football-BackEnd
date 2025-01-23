@@ -14,7 +14,6 @@ public class PlayerDTO {
     private String name;
     private int lastSeason;
     private Club currentClub;
-
     private String playerCode;
     private String countryOfBirth;
     private String cityOfBirth;
@@ -29,7 +28,6 @@ public class PlayerDTO {
     private String imageUrl;
     private String url;
     private Competition competition;
-
     private String currentClubName;
     private Double marketValueInEur;
     private Double highestMarketValueInEur;
