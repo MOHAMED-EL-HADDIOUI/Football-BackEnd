@@ -15,6 +15,9 @@ public interface GameService {
     Game getGame(Long Id_Game);
     void deleteGame(Long Id_Game);
     List<Game> getListGames();
-    GamesDTO searchByName(String name, int page) throws GameNotFoundException;
+    GamesDTO searchByHomeClubNameOrAwayClubName(String name, int page) throws GameNotFoundException;
+    GamesDTO searchByAwayClubManagerNameOrHomeClubManagerName(String name, int page) throws GameNotFoundException;
+    GamesDTO searchByStadium(String name, int page) throws GameNotFoundException;
+    GamesDTO searchByCompetition(String name, int page) throws GameNotFoundException;
 
 }

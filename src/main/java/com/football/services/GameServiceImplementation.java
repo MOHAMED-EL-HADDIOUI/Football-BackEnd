@@ -57,9 +57,51 @@ public class GameServiceImplementation implements GameService{
     }
 
     @Override
-    public GamesDTO searchByName(String name, int page) throws GameNotFoundException {
+    public GamesDTO searchByHomeClubNameOrAwayClubName(String name, int page) throws GameNotFoundException {
         Page<Game> games ;
-        games = gameRepository.searchByHomeClubNameOrAwayClubName(name, PageRequest.of(page,20));
+        games = gameRepository.searchByHomeClubNameOrAwayClubName(name, PageRequest.of(page,5));
+        List<GameDTO> gameDTOS=games.getContent().stream().map(c->dtoMapper.fromGame(c)).collect(Collectors.toList());
+        if (games == null)
+            throw new GameNotFoundException("Game not fount");
+
+        GamesDTO gamesDTO= new GamesDTO();
+        gamesDTO.setGameDTOS(gameDTOS);
+        gamesDTO.setTotalpage(games.getTotalPages());
+        return gamesDTO;
+    }
+
+    @Override
+    public GamesDTO searchByAwayClubManagerNameOrHomeClubManagerName(String name, int page) throws GameNotFoundException {
+        Page<Game> games ;
+        games = gameRepository.searchByAwayClubManagerNameOrHomeClubManagerName(name, PageRequest.of(page,5));
+        List<GameDTO> gameDTOS=games.getContent().stream().map(c->dtoMapper.fromGame(c)).collect(Collectors.toList());
+        if (games == null)
+            throw new GameNotFoundException("Game not fount");
+
+        GamesDTO gamesDTO= new GamesDTO();
+        gamesDTO.setGameDTOS(gameDTOS);
+        gamesDTO.setTotalpage(games.getTotalPages());
+        return gamesDTO;
+    }
+
+    @Override
+    public GamesDTO searchByStadium(String name, int page) throws GameNotFoundException {
+        Page<Game> games ;
+        games = gameRepository.searchByStadium(name, PageRequest.of(page,5));
+        List<GameDTO> gameDTOS=games.getContent().stream().map(c->dtoMapper.fromGame(c)).collect(Collectors.toList());
+        if (games == null)
+            throw new GameNotFoundException("Game not fount");
+
+        GamesDTO gamesDTO= new GamesDTO();
+        gamesDTO.setGameDTOS(gameDTOS);
+        gamesDTO.setTotalpage(games.getTotalPages());
+        return gamesDTO;
+    }
+
+    @Override
+    public GamesDTO searchByCompetition(String name, int page) throws GameNotFoundException {
+        Page<Game> games ;
+        games = gameRepository.searchByCompetition(name, PageRequest.of(page,5));
         List<GameDTO> gameDTOS=games.getContent().stream().map(c->dtoMapper.fromGame(c)).collect(Collectors.toList());
         if (games == null)
             throw new GameNotFoundException("Game not fount");

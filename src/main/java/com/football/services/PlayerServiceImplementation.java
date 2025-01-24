@@ -68,4 +68,43 @@ public class PlayerServiceImplementation implements PlayerService{
         playersDTO.setTotalpage(players.getTotalPages());
         return playersDTO;
     }
+    @Override
+    public PlayersDTO searchByCompetition(String name, int page) throws PlayerNotFoundException {
+        Page<Player> players ;
+        players = playerRepository.searchByCompetition(name, PageRequest.of(page,5));
+        List<PlayerDTO> playerDTOS=players.getContent().stream().map(c->dtoMapper.fromPlayer(c)).collect(Collectors.toList());
+        if (players == null)
+            throw new PlayerNotFoundException("Player not fount");
+
+        PlayersDTO playersDTO= new PlayersDTO();
+        playersDTO.setPlayerDTOS(playerDTOS);
+        playersDTO.setTotalpage(players.getTotalPages());
+        return playersDTO;
+    }
+    @Override
+    public PlayersDTO searchByCurrentClub(String name, int page) throws PlayerNotFoundException {
+        Page<Player> players ;
+        players = playerRepository.searchByCurrentClub(name, PageRequest.of(page,5));
+        List<PlayerDTO> playerDTOS=players.getContent().stream().map(c->dtoMapper.fromPlayer(c)).collect(Collectors.toList());
+        if (players == null)
+            throw new PlayerNotFoundException("Player not fount");
+
+        PlayersDTO playersDTO= new PlayersDTO();
+        playersDTO.setPlayerDTOS(playerDTOS);
+        playersDTO.setTotalpage(players.getTotalPages());
+        return playersDTO;
+    }
+    @Override
+    public PlayersDTO searchByPosition(String name, int page) throws PlayerNotFoundException {
+        Page<Player> players ;
+        players = playerRepository.searchByPosition(name, PageRequest.of(page,5));
+        List<PlayerDTO> playerDTOS=players.getContent().stream().map(c->dtoMapper.fromPlayer(c)).collect(Collectors.toList());
+        if (players == null)
+            throw new PlayerNotFoundException("Player not fount");
+
+        PlayersDTO playersDTO= new PlayersDTO();
+        playersDTO.setPlayerDTOS(playerDTOS);
+        playersDTO.setTotalpage(players.getTotalPages());
+        return playersDTO;
+    }
 }

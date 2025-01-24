@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class PlayerController {
@@ -28,8 +29,23 @@ public class PlayerController {
         return  playerService.getListPlayers();
     }
     @GetMapping("/api/players/search")
-    public PlayersDTO getplayersByName(@RequestParam(name = "name", defaultValue = "") String keyword, @RequestParam(name = "page", defaultValue = "0") int page) throws PlayerNotFoundException {
-        PlayersDTO playersDTO = playerService.searchByName("%" + keyword + "%", page);
+    public PlayersDTO getplayers(@RequestParam(name = "name", defaultValue = "") String keyword, @RequestParam(name = "page", defaultValue = "0") int page,@RequestParam(name = "criteria", defaultValue = "name") String criteria) throws PlayerNotFoundException {
+        PlayersDTO playersDTO = new PlayersDTO();
+        if(Objects.equals(criteria, "name"))
+        {
+            playersDTO =  playerService.searchByName("%" + keyword + "%", page);
+        }
+        else if(Objects.equals(criteria, "position"))
+        {
+            playersDTO =  playerService.searchByPosition("%" + keyword + "%", page);
+        }
+        else if(Objects.equals(criteria, "currentclub"))
+        {
+            playersDTO =  playerService.searchByCurrentClub("%" + keyword + "%", page);
+        }
+        else {
+            playersDTO =  playerService.searchByCompetition("%" + keyword + "%", page);
+        }
         return playersDTO;
     }
 }

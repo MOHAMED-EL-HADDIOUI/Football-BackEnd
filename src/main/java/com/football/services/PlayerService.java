@@ -15,6 +15,9 @@ public interface PlayerService {
     Player getPlayer(Long Id_Player);
     void deletePlayer(Long Id_Player);
     List<Player> getListPlayers();
+    PlayersDTO searchByCompetition(String name, int page) throws PlayerNotFoundException;
     PlayersDTO searchByName(String name, int page) throws PlayerNotFoundException;
+    PlayersDTO searchByCurrentClub(String name, int page) throws PlayerNotFoundException;
+    PlayersDTO searchByPosition(String name, int page) throws PlayerNotFoundException;
 
 }

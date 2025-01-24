@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class GameController {
@@ -29,8 +30,26 @@ public class GameController {
         return  gameService.getListGames();
     }
     @GetMapping("/api/games/search")
-    public GamesDTO getGamesByName(@RequestParam(name = "name", defaultValue = "") String keyword, @RequestParam(name = "page", defaultValue = "0") int page) throws GameNotFoundException {
-        GamesDTO gamesDTO = gameService.searchByName("%" + keyword + "%", page);
+    public GamesDTO getGamesByName(@RequestParam(name = "name", defaultValue = "") String keyword, @RequestParam(name = "page", defaultValue = "0") int page,@RequestParam(name = "criteria", defaultValue = "Club") String criteria) throws GameNotFoundException {
+        GamesDTO gamesDTO = new GamesDTO();
+        if(Objects.equals(criteria, "Club"))
+        {
+            gamesDTO = gameService.searchByHomeClubNameOrAwayClubName("%" + keyword + "%", page);
+        }
+        else if(Objects.equals(criteria, "Manager"))
+        {
+            gamesDTO = gameService.searchByAwayClubManagerNameOrHomeClubManagerName("%" + keyword + "%", page);
+
+        }
+        else if(Objects.equals(criteria, "Competition"))
+        {
+            gamesDTO = gameService.searchByCompetition("%" + keyword + "%", page);
+        }
+        else
+        {
+            gamesDTO = gameService.searchByStadium("%" + keyword + "%", page);
+        }
+
         return gamesDTO;
     }
 }
