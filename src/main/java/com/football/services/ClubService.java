@@ -14,4 +14,6 @@ public interface ClubService {
     void deleteClub(Long Id_Club);
     List<Club> getListClubs();
     ClubsDTO searchByName(String name, int page) throws ClubNotFoundException;
+    ClubsDTO getListClubByDomesticCompetition(String idCompetition, int page) throws ClubNotFoundException;
+
 }

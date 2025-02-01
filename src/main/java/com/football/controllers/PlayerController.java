@@ -28,7 +28,12 @@ public class PlayerController {
     public List<Player> getListPlayers(){
         return  playerService.getListPlayers();
     }
-    @GetMapping("/api/players/search")
+    @GetMapping("/api/players/club")
+    public PlayersDTO getListPlayersByCurrentClub(@RequestParam(name = "idclub") Long idclub, @RequestParam(name = "page", defaultValue = "0") int page) throws PlayerNotFoundException {
+        PlayersDTO playersDTO = playerService.getListPlayersByCurrentClub(idclub,page);
+        return playersDTO;
+    }
+        @GetMapping("/api/players/search")
     public PlayersDTO getplayers(@RequestParam(name = "name", defaultValue = "") String keyword, @RequestParam(name = "page", defaultValue = "0") int page,@RequestParam(name = "criteria", defaultValue = "name") String criteria) throws PlayerNotFoundException {
         PlayersDTO playersDTO = new PlayersDTO();
         if(Objects.equals(criteria, "name"))

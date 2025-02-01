@@ -1,9 +1,12 @@
 package com.football.controllers;
 
 import com.football.dtos.ClubsDTO;
+import com.football.dtos.PlayersDTO;
 import com.football.entites.Appearance;
 import com.football.entites.Club;
+import com.football.entites.Competition;
 import com.football.exceptions.ClubNotFoundException;
+import com.football.exceptions.PlayerNotFoundException;
 import com.football.services.AppearanceService;
 import com.football.services.ClubService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +31,11 @@ public class ClubController {
     @GetMapping("/api/clubs/")
     public List<Club> getListClubs(){
         return  clubService.getListClubs();
+    }
+    @GetMapping("/api/clubs/competition")
+    public ClubsDTO getListPlayersByCurrentClub(@RequestParam(name = "idCompetition") String idCompetition, @RequestParam(name = "page", defaultValue = "0") int page) throws ClubNotFoundException {
+        ClubsDTO clubsDTO = clubService.getListClubByDomesticCompetition(idCompetition,page);
+        return clubsDTO;
     }
     @GetMapping("/api/clubs/search")
     public ClubsDTO getClubsByName(@RequestParam(name = "name", defaultValue = "") String keyword, @RequestParam(name = "page", defaultValue = "0") int page) throws ClubNotFoundException {

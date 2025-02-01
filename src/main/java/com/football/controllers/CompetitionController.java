@@ -21,7 +21,7 @@ public class CompetitionController {
         this.competitionService = competitionService;
     }
     @GetMapping("/api/competitions/{competition_id}")
-    public Competition getAppearance(@PathVariable String competition_id){
+    public Competition getCompetitionsByCompetition(@PathVariable String competition_id){
         Competition competition = competitionService.getCompetition(competition_id);
         return competition;
     }

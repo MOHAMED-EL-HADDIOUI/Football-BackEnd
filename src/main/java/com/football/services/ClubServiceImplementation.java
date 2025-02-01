@@ -53,7 +53,21 @@ public class ClubServiceImplementation implements ClubService{
     @Override
     public ClubsDTO searchByName(String name, int page) throws ClubNotFoundException {
         Page<Club> clubs ;
-        clubs = clubRepository.searchByName(name, PageRequest.of(page,20));
+        clubs = clubRepository.searchByName(name, PageRequest.of(page,5));
+        List<ClubDTO> clubDTOList=clubs.getContent().stream().map(c->dtoMapper.fromClub(c)).collect(Collectors.toList());
+        if (clubs == null)
+            throw new ClubNotFoundException("Club not fount");
+
+        ClubsDTO clubsDTO= new ClubsDTO();
+        clubsDTO.setClubsDTOS(clubDTOList);
+        clubsDTO.setTotalpage(clubs.getTotalPages());
+        return clubsDTO;
+    }
+
+    @Override
+    public ClubsDTO getListClubByDomesticCompetition(String idCompetition, int page) throws ClubNotFoundException {
+        Page<Club> clubs ;
+        clubs = clubRepository.getListClubByDomesticCompetition(idCompetition, PageRequest.of(page,8));
         List<ClubDTO> clubDTOList=clubs.getContent().stream().map(c->dtoMapper.fromClub(c)).collect(Collectors.toList());
         if (clubs == null)
             throw new ClubNotFoundException("Club not fount");

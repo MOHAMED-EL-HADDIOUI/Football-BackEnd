@@ -107,4 +107,17 @@ public class PlayerServiceImplementation implements PlayerService{
         playersDTO.setTotalpage(players.getTotalPages());
         return playersDTO;
     }
+
+    @Override
+    public PlayersDTO getListPlayersByCurrentClub(Long Id_club, int page) throws PlayerNotFoundException {
+        Page<Player> players ;
+        players = playerRepository.getListPlayersByCurrentClub(Id_club, PageRequest.of(page,8));
+        List<PlayerDTO> playerDTOS=players.getContent().stream().map(c->dtoMapper.fromPlayer(c)).collect(Collectors.toList());
+        if (players == null)
+            throw new PlayerNotFoundException("Player not fount");
+        PlayersDTO playersDTO= new PlayersDTO();
+        playersDTO.setPlayerDTOS(playerDTOS);
+        playersDTO.setTotalpage(players.getTotalPages());
+        return playersDTO;
+    }
 }

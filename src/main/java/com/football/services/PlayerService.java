@@ -19,5 +19,7 @@ public interface PlayerService {
     PlayersDTO searchByName(String name, int page) throws PlayerNotFoundException;
     PlayersDTO searchByCurrentClub(String name, int page) throws PlayerNotFoundException;
     PlayersDTO searchByPosition(String name, int page) throws PlayerNotFoundException;
+    PlayersDTO getListPlayersByCurrentClub(Long Id_club, int page) throws PlayerNotFoundException;
+
 
 }
