@@ -58,7 +58,7 @@ public class PlayerServiceImplementation implements PlayerService{
     @Override
     public PlayersDTO searchByName(String name, int page) throws PlayerNotFoundException {
         Page<Player> players ;
-        players = playerRepository.searchByName(name, PageRequest.of(page,5));
+        players = playerRepository.searchByName(name, PageRequest.of(page,6));
         List<PlayerDTO> playerDTOS=players.getContent().stream().map(c->dtoMapper.fromPlayer(c)).collect(Collectors.toList());
         if (players == null)
             throw new PlayerNotFoundException("Player not fount");
@@ -71,7 +71,7 @@ public class PlayerServiceImplementation implements PlayerService{
     @Override
     public PlayersDTO searchByCompetition(String name, int page) throws PlayerNotFoundException {
         Page<Player> players ;
-        players = playerRepository.searchByCompetition(name, PageRequest.of(page,5));
+        players = playerRepository.searchByCompetition(name, PageRequest.of(page,6));
         List<PlayerDTO> playerDTOS=players.getContent().stream().map(c->dtoMapper.fromPlayer(c)).collect(Collectors.toList());
         if (players == null)
             throw new PlayerNotFoundException("Player not fount");
@@ -84,7 +84,7 @@ public class PlayerServiceImplementation implements PlayerService{
     @Override
     public PlayersDTO searchByCurrentClub(String name, int page) throws PlayerNotFoundException {
         Page<Player> players ;
-        players = playerRepository.searchByCurrentClub(name, PageRequest.of(page,5));
+        players = playerRepository.searchByCurrentClub(name, PageRequest.of(page,6));
         List<PlayerDTO> playerDTOS=players.getContent().stream().map(c->dtoMapper.fromPlayer(c)).collect(Collectors.toList());
         if (players == null)
             throw new PlayerNotFoundException("Player not fount");
@@ -97,7 +97,7 @@ public class PlayerServiceImplementation implements PlayerService{
     @Override
     public PlayersDTO searchByPosition(String name, int page) throws PlayerNotFoundException {
         Page<Player> players ;
-        players = playerRepository.searchByPosition(name, PageRequest.of(page,5));
+        players = playerRepository.searchByPosition(name, PageRequest.of(page,6));
         List<PlayerDTO> playerDTOS=players.getContent().stream().map(c->dtoMapper.fromPlayer(c)).collect(Collectors.toList());
         if (players == null)
             throw new PlayerNotFoundException("Player not fount");

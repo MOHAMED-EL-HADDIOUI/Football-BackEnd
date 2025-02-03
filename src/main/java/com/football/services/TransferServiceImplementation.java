@@ -67,4 +67,18 @@ public class TransferServiceImplementation implements TransferService{
         transfersDTO.setTotalpage(transfers.getTotalPages());
         return transfersDTO;
     }
+
+    @Override
+    public TransfersDTO searchByPlayer(Long playerId, int page) throws TransferNotFoundException {
+        Page<Transfer> transfers ;
+        transfers = transferRepository.searchByPlayer(playerId, PageRequest.of(page,4));
+        List<TransferDTO>  transferDTOS = transfers.getContent().stream().map(c->dtoMapper.fromTransfer(c)).collect(Collectors.toList());
+        if (transfers == null)
+            throw new TransferNotFoundException("Transfer not fount");
+
+        TransfersDTO transfersDTO= new TransfersDTO();
+        transfersDTO.setTransferDTOS(transferDTOS);
+        transfersDTO.setTotalpage(transfers.getTotalPages());
+        return transfersDTO;
+    }
 }

@@ -18,6 +18,7 @@ public interface TransferService {
     void deleteTransfer(Long Id_Transfer);
     List<Transfer> getListTransfers();
     TransfersDTO searchByName(String name, int page) throws TransferNotFoundException;
+    TransfersDTO searchByPlayer(Long playerId, int page) throws TransferNotFoundException;
 
 
 }

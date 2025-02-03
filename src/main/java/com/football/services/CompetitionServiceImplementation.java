@@ -58,7 +58,7 @@ public class CompetitionServiceImplementation implements CompetitionService{
     @Override
     public CompetitionsDTO searchByName(String name, int page) throws CompetitionNotFoundException {
         Page<Competition> competitions ;
-        competitions = competitionRepository.searchByName(name, PageRequest.of(page,5));
+        competitions = competitionRepository.searchByName(name, PageRequest.of(page,6));
         List<CompetitionDTO> competitionDTOS=competitions.getContent().stream().map(c->dtoMapper.fromCompetition(c)).collect(Collectors.toList());
         if (competitions == null)
             throw new CompetitionNotFoundException("Club not fount");

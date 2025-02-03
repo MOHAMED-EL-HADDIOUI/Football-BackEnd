@@ -11,7 +11,6 @@ public class ClubGame {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clubGameId;
-
     @ManyToOne
     @JoinColumn(name = "gameId", referencedColumnName = "gameId")
     private Game game;

@@ -36,4 +36,9 @@ public class TransferController {
         TransfersDTO transfersDTO = transferService.searchByName("%" + keyword + "%", page);
         return transfersDTO;
     }
+    @GetMapping("/api/transfers/player")
+    public TransfersDTO searchByPlayer(@RequestParam(name = "playerId", defaultValue = "") Long playerId, @RequestParam(name = "page", defaultValue = "0") int page) throws TransferNotFoundException {
+        TransfersDTO transfersDTO = transferService.searchByPlayer(playerId, page);
+        return transfersDTO;
+    }
 }
