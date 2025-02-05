@@ -1,5 +1,6 @@
 package com.football.services;
 
+import com.football.dtos.ClubDTO;
 import com.football.dtos.ClubsDTO;
 import com.football.entites.Club;
 import com.football.exceptions.ClubNotFoundException;
@@ -9,7 +10,9 @@ import java.util.List;
 
 @Service
 public interface ClubService {
-    Club saveClub(Club club);
+    ClubDTO saveClub(ClubDTO clubDTO);
+    ClubDTO updateClub(ClubDTO clubDTO);
+
     Club getClub(Long Id_Club);
     void deleteClub(Long Id_Club);
     List<Club> getListClubs();

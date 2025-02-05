@@ -36,10 +36,20 @@ public class CompetitionServiceImplementation implements CompetitionService{
     CompetitionMapperImplementation dtoMapper;
 
     @Override
-    public Competition saveCompetition(Competition competition) {
-        return competitionRepository.save(competition);
+    public CompetitionDTO saveCompetition(CompetitionDTO competitionDTO) {
+        Competition competition = dtoMapper.fromCompetitionDTO(competitionDTO);
+        Competition competition1 = competitionRepository.save(competition);
+        CompetitionDTO competitionDTO1 = dtoMapper.fromCompetition(competition1);
+        return competitionDTO1;
     }
 
+    @Override
+    public CompetitionDTO updateCompetition(CompetitionDTO competitionDTO) {
+        Competition competition = dtoMapper.fromCompetitionDTO(competitionDTO);
+        Competition competition1 = competitionRepository.save(competition);
+        CompetitionDTO competitionDTO1 = dtoMapper.fromCompetition(competition1);
+        return competitionDTO1;
+    }
     @Override
     public Competition getCompetition(String Id_Competition) {
         return competitionRepository.findById(Id_Competition).orElse(null);

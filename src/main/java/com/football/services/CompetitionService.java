@@ -1,6 +1,7 @@
 package com.football.services;
 
 import com.football.dtos.ClubsDTO;
+import com.football.dtos.CompetitionDTO;
 import com.football.dtos.CompetitionsDTO;
 import com.football.entites.Appearance;
 import com.football.entites.Competition;
@@ -12,7 +13,9 @@ import java.util.List;
 
 @Service
 public interface CompetitionService {
-    Competition saveCompetition(Competition competition);
+    CompetitionDTO saveCompetition(CompetitionDTO competition);
+    CompetitionDTO updateCompetition(CompetitionDTO competition);
+
     Competition getCompetition(String Id_Competition);
     List<Competition> getListCompetitions();
     void deleteCompetition (String Id_Competition);

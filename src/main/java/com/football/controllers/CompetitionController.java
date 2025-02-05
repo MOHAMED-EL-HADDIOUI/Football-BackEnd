@@ -1,15 +1,14 @@
 package com.football.controllers;
 
+import com.football.dtos.ClubDTO;
 import com.football.dtos.ClubsDTO;
+import com.football.dtos.CompetitionDTO;
 import com.football.dtos.CompetitionsDTO;
 import com.football.entites.Competition;
 import com.football.exceptions.ClubNotFoundException;
 import com.football.exceptions.CompetitionNotFoundException;
 import com.football.services.CompetitionService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +32,19 @@ public class CompetitionController {
     public CompetitionsDTO getCompetitionsByName(@RequestParam(name = "name", defaultValue = "") String keyword, @RequestParam(name = "page", defaultValue = "0") int page) throws CompetitionNotFoundException {
         CompetitionsDTO competitionsDTO = competitionService.searchByName("%" + keyword + "%", page);
         return competitionsDTO;
+    }
+    @PostMapping("/api/competitions/add")
+    public CompetitionDTO addCompetition(@RequestBody CompetitionDTO competitionDTO)
+    {
+        System.out.println("add Competition");
+        System.out.println(competitionDTO.toString());
+        CompetitionDTO competitionDTO1 = competitionService.saveCompetition(competitionDTO);
+        return competitionDTO1;
+    }
+    @PutMapping("/api/competitions/update")
+    public CompetitionDTO updateCompetition(@RequestBody CompetitionDTO competitionDTO)
+    {
+        CompetitionDTO competitionDTO1 = competitionService.updatecompetition(competitionDTO);
+        return competitionDTO1;
     }
 }

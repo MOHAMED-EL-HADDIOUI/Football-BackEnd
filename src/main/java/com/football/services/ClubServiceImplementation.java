@@ -30,9 +30,19 @@ public class ClubServiceImplementation implements ClubService{
     @Autowired
     ClubMapperImplementation dtoMapper;
     @Override
-    public Club saveClub(Club club) {
-        Club savedClub = clubRepository.save(club);
-        return savedClub;
+    public ClubDTO saveClub(ClubDTO clubDTO) {
+        Club club = dtoMapper.fromClubDTO(clubDTO);
+        Club club1 = clubRepository.save(club);
+        ClubDTO clubDTO1 = dtoMapper.fromClub(club1);
+        return clubDTO1;
+    }
+
+    @Override
+    public ClubDTO updateClub(ClubDTO clubDTO) {
+        Club club = dtoMapper.fromClubDTO(clubDTO);
+        Club club1 = clubRepository.save(club);
+        ClubDTO clubDTO1 = dtoMapper.fromClub(club1);
+        return clubDTO1;
     }
 
     @Override
