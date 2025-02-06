@@ -44,7 +44,7 @@ public class CompetitionController {
     @PutMapping("/api/competitions/update")
     public CompetitionDTO updateCompetition(@RequestBody CompetitionDTO competitionDTO)
     {
-        CompetitionDTO competitionDTO1 = competitionService.updatecompetition(competitionDTO);
+        CompetitionDTO competitionDTO1 = competitionService.updateCompetition(competitionDTO);
         return competitionDTO1;
     }
 }
