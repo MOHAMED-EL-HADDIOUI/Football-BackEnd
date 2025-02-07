@@ -2,6 +2,7 @@ package com.football.mappers;
 
 import com.football.dtos.ClubDTO;
 import com.football.dtos.GameDTO;
+import com.football.dtos.Game_DTO;
 import com.football.entites.Club;
 import com.football.entites.Game;
 import org.springframework.beans.BeanUtils;
@@ -18,6 +19,11 @@ public class GameMapperImplementation {
     public Game fromGameDTO(GameDTO gameDTO){
         Game game = new Game();
         BeanUtils.copyProperties(gameDTO,game);
+        return game;
+    }
+    public Game fromGame_DTO(Game_DTO game_DTO){
+        Game game = new Game();
+        BeanUtils.copyProperties(game_DTO,game,"awayClub","homeClub","competition");
         return game;
     }
     public void updateGameFromDTO(GameDTO gameDTO, Game game) {

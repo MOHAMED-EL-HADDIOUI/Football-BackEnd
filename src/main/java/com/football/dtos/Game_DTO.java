@@ -1,31 +1,19 @@
-package com.football.entites;
-import jakarta.persistence.*;
-import lombok.*;
+package com.football.dtos;
+
+import com.football.entites.Club;
+import com.football.entites.Competition;
+import lombok.Data;
 
 import java.util.Date;
-
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
-@Builder
-public class Game {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Game_DTO {
     private Long gameId;
-
-    @ManyToOne
-    @JoinColumn(name = "competitionId", referencedColumnName = "competitionId")
-    private Competition competition;
+    private String competition;
     private int season;
     private String round;
     private Date date;
-    @ManyToOne
-    @JoinColumn(name = "homeClubId", referencedColumnName = "clubId")
-    private Club homeClub;
-    @ManyToOne
-    @JoinColumn(name = "awayClubId", referencedColumnName = "clubId")
-    private Club awayClub;
+    private Long homeClub;
+    private Long awayClub;
 
     private int homeClubGoals;
     private int awayClubGoals;
@@ -43,4 +31,5 @@ public class Game {
     private String awayClubName;
     private String aggregate;
     private String competitionType;
+
 }

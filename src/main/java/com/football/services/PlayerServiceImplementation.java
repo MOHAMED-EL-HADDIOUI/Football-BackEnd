@@ -1,9 +1,7 @@
 package com.football.services;
-import com.football.dtos.ClubDTO;
-import com.football.dtos.ClubsDTO;
-import com.football.dtos.PlayerDTO;
-import com.football.dtos.PlayersDTO;
+import com.football.dtos.*;
 import com.football.entites.Club;
+import com.football.entites.Competition;
 import com.football.entites.Player;
 import com.football.exceptions.ClubNotFoundException;
 import com.football.exceptions.PlayerNotFoundException;
@@ -33,10 +31,44 @@ public class PlayerServiceImplementation implements PlayerService{
     PlayerRepository playerRepository;
     @Autowired
     PlayerMapperImplementation dtoMapper;
+    @Autowired
+    @Order(1)
+    CompetitionService competitionService;
+
+    @Autowired
+    @Order(1)
+    ClubService clubService;
 
     @Override
-    public Player savePlayer(Player player) {
-        return playerRepository.save(player);
+    public PlayerDTO savePlayer(Player_DTO player_dto) {
+        Player player = dtoMapper.fromPlayer_DTO(player_dto);
+        if (player_dto.getCompetition() != null && player_dto.getCurrentClub()!=null) {
+
+            Competition competition = competitionService.getCompetition(player_dto.getCompetition());
+            player.setCompetition(competition);
+
+            Club club = clubService.getClub(player_dto.getCurrentClub());
+            player.setCurrentClub(club);
+        }
+        player.setPlayerId(null);
+        Player player1 = playerRepository.save(player);
+        return dtoMapper.fromPlayer(player1);
+    }
+
+    @Override
+    public PlayerDTO updatePlayer(Player_DTO player_dto) {
+        Player player = dtoMapper.fromPlayer_DTO(player_dto);
+        if (player_dto.getCompetition() != null && player_dto.getCurrentClub()!=null) {
+
+            Competition competition = competitionService.getCompetition(player_dto.getCompetition());
+            player.setCompetition(competition);
+
+            Club club = clubService.getClub(player_dto.getCurrentClub());
+            player.setCurrentClub(club);
+        }
+        player.setName(player.getFirstName()+" "+player.getLastName());
+        Player player1 = playerRepository.save(player);
+        return dtoMapper.fromPlayer(player1);
     }
 
     @Override

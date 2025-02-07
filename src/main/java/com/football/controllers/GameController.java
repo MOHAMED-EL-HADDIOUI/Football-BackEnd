@@ -1,15 +1,14 @@
 package com.football.controllers;
 
-import com.football.dtos.CompetitionsDTO;
-import com.football.dtos.GamesDTO;
+import com.football.dtos.*;
 import com.football.entites.Game;
 import com.football.exceptions.CompetitionNotFoundException;
 import com.football.exceptions.GameNotFoundException;
 import com.football.services.GameService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -51,5 +50,27 @@ public class GameController {
         }
 
         return gamesDTO;
+    }
+    @PostMapping("/api/games/add")
+    public GameDTO addPlayer(@RequestBody Game_DTO gameDto)
+    {
+        System.out.println("add game");
+        System.out.println(gameDto.toString());
+        GameDTO gameDTO = gameService.saveGame(gameDto);
+        return gameDTO;
+    }
+    @PutMapping("/api/games/update")
+    public GameDTO updatePlayer(@RequestBody  Game_DTO gameDto)
+    {
+        System.out.println("update game");
+        System.out.println(gameDto.toString());
+        GameDTO gameDTO = gameService.updateGame(gameDto);
+        return gameDTO;
+    }
+    @DeleteMapping("/api/games/delete/{playerId}")
+    public ResponseEntity<Void> deleteBook(@PathVariable Long gameId) {
+        System.out.println("delete game");
+        gameService.deleteGame(gameId);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

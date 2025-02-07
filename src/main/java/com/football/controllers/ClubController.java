@@ -1,6 +1,7 @@
 package com.football.controllers;
 
 import com.football.dtos.ClubDTO;
+import com.football.dtos.Club_DTO;
 import com.football.dtos.ClubsDTO;
 import com.football.dtos.PlayersDTO;
 import com.football.entites.Appearance;
@@ -10,6 +11,8 @@ import com.football.exceptions.ClubNotFoundException;
 import com.football.exceptions.PlayerNotFoundException;
 import com.football.services.AppearanceService;
 import com.football.services.ClubService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,17 +44,25 @@ public class ClubController {
         return clubsDTO;
     }
     @PostMapping("/api/clubs/add")
-    public ClubDTO addClub(@RequestBody ClubDTO clubDTO)
+    public ClubDTO addClub(@RequestBody Club_DTO club_DTO)
     {
         System.out.println("add club");
-        System.out.println(clubDTO.toString());
-        ClubDTO clubDTO1 = clubService.saveClub(clubDTO);
+        System.out.println(club_DTO.toString());
+        ClubDTO clubDTO1 = clubService.saveClub(club_DTO);
         return clubDTO1;
     }
     @PutMapping("/api/clubs/update")
-    public ClubDTO updateClub(@RequestBody ClubDTO clubDTO)
+    public ClubDTO updateClub(@RequestBody Club_DTO club_DTO)
     {
-        ClubDTO clubDTO1 = clubService.updateClub(clubDTO);
+        System.out.println("update club");
+        System.out.println(club_DTO.toString());
+        ClubDTO clubDTO1 = clubService.updateClub(club_DTO);
         return clubDTO1;
+    }
+    @DeleteMapping("/api/clubs/delete/{clubId}")
+    public ResponseEntity<Void> deleteBook(@PathVariable Long clubId) {
+        System.out.println("delete club");
+        clubService.deleteClub(clubId);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

@@ -12,10 +12,8 @@ import java.util.Date;
 @Builder
 @ToString
 public class Appearance {
-
     @Id
     private String appearanceId;
-
     @ManyToOne
     @JoinColumn(name = "playerId", referencedColumnName = "playerId")
     private Player player;

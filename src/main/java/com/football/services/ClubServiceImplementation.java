@@ -1,7 +1,9 @@
 package com.football.services;
 import com.football.dtos.ClubDTO;
+import com.football.dtos.Club_DTO;
 import com.football.dtos.ClubsDTO;
 import com.football.entites.Club;
+import com.football.entites.Competition;
 import com.football.exceptions.ClubNotFoundException;
 import com.football.mappers.ClubMapperImplementation;
 import com.football.repository.ClubRepository;
@@ -28,18 +30,41 @@ public class ClubServiceImplementation implements ClubService{
     @Order(1)
     ClubRepository clubRepository;
     @Autowired
+    @Order(1)
+    CompetitionService competitionService;
+    @Autowired
     ClubMapperImplementation dtoMapper;
     @Override
-    public ClubDTO saveClub(ClubDTO clubDTO) {
-        Club club = dtoMapper.fromClubDTO(clubDTO);
-        Club club1 = clubRepository.save(club);
-        ClubDTO clubDTO1 = dtoMapper.fromClub(club1);
-        return clubDTO1;
+    public ClubDTO saveClub(Club_DTO club_DTO) {
+        // Convertir le DTO en entité
+        Club club = dtoMapper.fromClub_DTO(club_DTO);
+
+        // Si une compétition domestique est précisée dans le DTO,
+        // on récupère l'entité Competition correspondante.
+        if (club_DTO.getDomesticCompetition() != null) {
+            Competition competition = competitionService.getCompetition(club_DTO.getDomesticCompetition());
+            club.setDomesticCompetition(competition);
+        }
+
+        // On s'assure que l'identifiant est nul pour permettre à la base de données
+        // de le générer automatiquement.
+        club.setClubId(null);
+
+        // Sauvegarder l'entité Club dans la base de données.
+        Club savedClub = clubRepository.save(club);
+
+        // Convertir l'entité sauvegardée en DTO et la retourner.
+        return dtoMapper.fromClub(savedClub);
     }
 
+
     @Override
-    public ClubDTO updateClub(ClubDTO clubDTO) {
-        Club club = dtoMapper.fromClubDTO(clubDTO);
+    public ClubDTO updateClub(Club_DTO club_DTO) {
+        Club club = dtoMapper.fromClub_DTO(club_DTO);
+        if (club_DTO.getDomesticCompetition() != null) {
+            Competition competition = competitionService.getCompetition(club_DTO.getDomesticCompetition());
+            club.setDomesticCompetition(competition);
+        }
         Club club1 = clubRepository.save(club);
         ClubDTO clubDTO1 = dtoMapper.fromClub(club1);
         return clubDTO1;

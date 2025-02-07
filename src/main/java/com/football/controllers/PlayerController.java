@@ -1,14 +1,13 @@
 package com.football.controllers;
-import com.football.dtos.CompetitionsDTO;
-import com.football.dtos.PlayersDTO;
+import com.football.dtos.*;
 import com.football.entites.Player;
 import com.football.exceptions.CompetitionNotFoundException;
 import com.football.exceptions.PlayerNotFoundException;
 import com.football.services.PlayerService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -52,5 +51,27 @@ public class PlayerController {
             playersDTO =  playerService.searchByCompetition("%" + keyword + "%", page);
         }
         return playersDTO;
+    }
+    @PostMapping("/api/players/add")
+    public PlayerDTO addPlayer(@RequestBody Player_DTO player_dto)
+    {
+        System.out.println("add player");
+        System.out.println(player_dto.toString());
+        PlayerDTO playerDTO = playerService.savePlayer(player_dto);
+        return playerDTO;
+    }
+    @PutMapping("/api/players/update")
+    public PlayerDTO updatePlayer(@RequestBody Player_DTO player_dto)
+    {
+        System.out.println("update player");
+        System.out.println(player_dto.toString());
+        PlayerDTO playerDTO = playerService.updatePlayer(player_dto);
+        return playerDTO;
+    }
+    @DeleteMapping("/api/players/delete/{playerId}")
+    public ResponseEntity<Void> deleteBook(@PathVariable Long playerId) {
+        System.out.println("delete player");
+        playerService.deletePlayer(playerId);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

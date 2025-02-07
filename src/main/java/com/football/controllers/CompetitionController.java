@@ -8,6 +8,8 @@ import com.football.entites.Competition;
 import com.football.exceptions.ClubNotFoundException;
 import com.football.exceptions.CompetitionNotFoundException;
 import com.football.services.CompetitionService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,5 +48,11 @@ public class CompetitionController {
     {
         CompetitionDTO competitionDTO1 = competitionService.updateCompetition(competitionDTO);
         return competitionDTO1;
+    }
+    @DeleteMapping("/api/competitions/delete/{competitionId}")
+    public ResponseEntity<Void> deleteBook(@PathVariable String competitionId) {
+        System.out.println("delete competition");
+        competitionService.deleteCompetition(competitionId);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 }

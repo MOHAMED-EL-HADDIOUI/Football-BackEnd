@@ -1,10 +1,9 @@
 package com.football.services;
-import com.football.dtos.ClubDTO;
-import com.football.dtos.ClubsDTO;
-import com.football.dtos.GameDTO;
-import com.football.dtos.GamesDTO;
+import com.football.dtos.*;
 import com.football.entites.Club;
+import com.football.entites.Competition;
 import com.football.entites.Game;
+import com.football.entites.Player;
 import com.football.exceptions.ClubNotFoundException;
 import com.football.exceptions.GameNotFoundException;
 import com.football.mappers.ClubMapperImplementation;
@@ -33,11 +32,49 @@ public class GameServiceImplementation implements GameService{
     @Order(1)
     GameRepository gameRepository;
     @Autowired
+    @Order(1)
+    CompetitionService competitionService;
+    @Autowired
+    @Order(1)
+    ClubService clubService;
+    @Autowired
     GameMapperImplementation dtoMapper;
 
+
     @Override
-    public Game saveGame(Game game) {
-        return gameRepository.save(game);
+    public GameDTO saveGame(Game_DTO game_Dto) {
+        Game game = dtoMapper.fromGame_DTO(game_Dto);
+        if (game_Dto.getCompetition() != null && game_Dto.getAwayClub()!=null && game_Dto.getHomeClub()!=null) {
+
+            Competition competition = competitionService.getCompetition(game_Dto.getCompetition());
+            game.setCompetition(competition);
+
+            Club homeClub = clubService.getClub(game_Dto.getAwayClub());
+            Club awayClub = clubService.getClub(game_Dto.getAwayClub());
+            game.setHomeClub(homeClub);
+            game.setAwayClub(awayClub);
+        }
+        game.setGameId(null);
+        Game game1 = gameRepository.save(game);
+        return dtoMapper.fromGame(game1);
+    }
+
+    @Override
+    public GameDTO updateGame(Game_DTO game_Dto) {
+        Game game = dtoMapper.fromGame_DTO(game_Dto);
+        if (game_Dto.getCompetition() != null && game_Dto.getAwayClub()!=null && game_Dto.getHomeClub()!=null) {
+
+            Competition competition = competitionService.getCompetition(game_Dto.getCompetition());
+            game.setCompetition(competition);
+
+            Club homeClub = clubService.getClub(game_Dto.getAwayClub());
+            Club awayClub = clubService.getClub(game_Dto.getAwayClub());
+            game.setHomeClub(homeClub);
+            game.setAwayClub(awayClub);
+        }
+        game.setGameId(null);
+        Game game1 = gameRepository.save(game);
+        return dtoMapper.fromGame(game1);
     }
 
     @Override

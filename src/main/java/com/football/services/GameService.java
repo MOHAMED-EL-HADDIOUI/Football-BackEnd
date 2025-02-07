@@ -1,6 +1,8 @@
 package com.football.services;
 
 import com.football.dtos.ClubsDTO;
+import com.football.dtos.GameDTO;
+import com.football.dtos.Game_DTO;
 import com.football.dtos.GamesDTO;
 import com.football.entites.Game;
 import com.football.exceptions.ClubNotFoundException;
@@ -11,7 +13,10 @@ import java.util.List;
 
 @Service
 public interface GameService {
-    Game saveGame(Game game);
+    GameDTO saveGame(Game_DTO game_Dto);
+    GameDTO updateGame(Game_DTO game_Dto);
+
+
     Game getGame(Long Id_Game);
     void deleteGame(Long Id_Game);
     List<Game> getListGames();
